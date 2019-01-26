@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>generative-course-cover</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <script src="../p5.min.js"></script>
+    <script src="../addons/p5.dom.min.js"></script>
+    <script src="../addons/p5.sound.min.js"></script>
+    <script src="util.js"></script>
+    <script src="const.js"></script>
+    <script src="V1.js"></script>
+    <script src="V2.js"></script>
+    <script src="V3.js"></script>
+    <script src="V4.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div>
+      <div id="sketch-holder"><!-- Our sketch will go here! --></div>
+      <h2>Don't like it?</h2>
+      <button id="redraw-button">GET NEW IMAGE</button>
+    </div>
+  </body>
+  <script>
+    const redrawButton = document.getElementById('redraw-button');
+    redrawButton.addEventListener('click', () => redraw());
+  </script>
+</html>
