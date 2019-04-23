@@ -9,6 +9,8 @@ function draw() {
   // V1();
   // V2()
   // V3();
-  V4();
+  // V4();
+  // Ta()
+  Tung();
   pop();
 }
