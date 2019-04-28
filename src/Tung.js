@@ -1,74 +1,102 @@
-var a;
-function setup() {
-  a = createCanvas(4961, 3508);
-  noLoop();
-}
+// config type
+//
+// width, height, posX, posY, strokWeight:
+// => number || object {min, max} || [values to random]
+//
+// strokeColor:
+// => string || [values to random] (color in HEX)
+//
+// isCircle:
+// => boolean
+// => if true height = width
 
-const canvasWidth = 4961;
-const canvasHeight = 3508;
+const tungConfig = {
+  defaultElement: {
+    width: { min: 0, max: CANVAS_SIZE.WIDTH },
+    height: { min: 0, max: CANVAS_SIZE.HEIGHT },
+    posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+    posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+    strokeWeight: 4,
+    strokeColor: '#faa91a',
+    isCircle: true,
+  },
+  elementCount: 3,
+  elements: [
+    {
+      width: [200, 400, 600, 800],
+      height: [200, 400, 600, 800],
+      posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+      posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+      isCircle: true,
+      strokeWeight: 6,
+      strokeColor: '#faa91a',
+    },
+    {
+      width: 400,
+      height: 300,
+      posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+      posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+      isCircle: true,
+      strokeWeight: 6,
+      strokeColor: '#4c60f8',
+    },
+    {
+      width: { min: 200, max: 800 },
+      height: 300,
+      posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+      posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+      isCircle: true,
+      strokeWeight: 6,
+      strokeColor: '#4c60f8',
+    },
+  ],
+};
 
-const WIDTH_MULTIPLIER = canvasWidth / CANVAS_SIZE.WIDTH;
-const HEIGHT_MULTIPLIER = canvasHeight / CANVAS_SIZE.HEIGHT;
+const getElements = (type, config) => {
+  const { defaultElement, elementCount, elements } = config || {};
+  let newElements = [];
+  for (let i = 0; i < elementCount; i++) {
+    const currElement = elements[i] || {};
+    const newElement = {};
+    Object.keys(defaultElement).forEach(e => {
+      newElement[e] = currElement[e] || defaultElement[e];
+    });
+    newElements.push(newElement);
+  }
+  return newElements;
+};
+
+const getValue = value => {
+  if (Array.isArray(value)) {
+    return random(value);
+  } else if (typeof value === 'object') {
+    const { min, max } = value;
+    return random(min, max);
+  } else {
+    return value;
+  }
+};
+const drawEllipse = (w, h, x, y, sWeight, sColor, isCircle) => {
+  const width = getValue(w);
+  const height = isCircle ? width : getValue(h);
+  const posX = getValue(x);
+  const posY = getValue(y);
+  const stWeight = getValue(sWeight);
+  const stColor = getValue(sColor);
+
+  strokeWeight(stWeight);
+  stroke(stColor);
+  ellipse(posX, posY, width, height);
+};
 
 function Tung() {
+  const elements = getElements(null, tungConfig);
   noFill();
   background(0);
-  strokeWeight(100 / WIDTH_MULTIPLIER);
-  fill(design);
-  fill(data);
-  fill(biz);
-  fill(Tech);
-  //Design
-  //  stroke(250,169,26);
-  //  ellipse(random(width),random(height), 400, 400);
-  //  ellipse(random(width),random(height), 300, 300);
-  //Data
-  //  stroke(76,96,248);
-  //  ellipse(random(width),random(height), 100, 100);
-  //  ellipse(random(width),random(height), 500, 500);
-  //Bussiness
-  //  stroke(75,226,139);
-  //  ellipse(random(width),random(height), 200, 200);
-  //  ellipse(random(width),random(height), 600, 600);
-  //Tech
-  //  stroke(253,68,107);
-  //  ellipse(random(width),random(height), 400, 400);
-  //  ellipse(random(width),random(height), 700, 700);
-  grainFilter();
-}
 
-function grainFilter() {
-  push();
-  strokeWeight(3);
-  noStroke();
-  for (var i = 0; i < width - 1; i += 1) {
-    for (var j = 0; j < height - 1; j += 1) {
-      fill(random(145, 250), 25);
-      //rect(i, j, 2, 2);
-    }
-  }
-  pop();
-}
-
-function keyReleased() {
-  if (key == 's' || key == 'S') saveCanvas(gd.timestamp(), 'png');
-
-  if (key == '1')
-    (design = stroke(250, 169, 26)),
-      ellipse(random(width), random(height), 4000 / WIDTH_MULTIPLIER, 4000 / WIDTH_MULTIPLIER),
-      ellipse(random(width), random(height), 3000 / WIDTH_MULTIPLIER, 3000 / WIDTH_MULTIPLIER);
-  if (key == '2')
-    (data = stroke(76, 96, 248)),
-      ellipse(random(width), random(height), 1000 / WIDTH_MULTIPLIER, 1000 / WIDTH_MULTIPLIER),
-      ellipse(random(width), random(height), 5000 / WIDTH_MULTIPLIER, 5000 / WIDTH_MULTIPLIER);
-
-  if (key == '3')
-    (biz = stroke(75, 226, 139)),
-      ellipse(random(width), random(height), 2000 / WIDTH_MULTIPLIER, 2000 / WIDTH_MULTIPLIER),
-      ellipse(random(width), random(height), 6000 / WIDTH_MULTIPLIER, 6000 / WIDTH_MULTIPLIER);
-
-  if (key == '4')
-    (tech = stroke(253, 68, 107)),
-      ellipse(random(width), random(height), 4000 / WIDTH_MULTIPLIER, 4000 / WIDTH_MULTIPLIER);
-  ellipse(random(width), random(height), 3000 / WIDTH_MULTIPLIER, 3000 / WIDTH_MULTIPLIER);
+  elements.forEach(e => {
+    const { width, height, posX, posY, strokeWeight, strokeColor, isCircle } = e;
+    noFill();
+    drawEllipse(width, height, posX, posY, strokeWeight, strokeColor, isCircle);
+  });
 }
