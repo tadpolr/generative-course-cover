@@ -5,12 +5,14 @@ function setup() {
 }
 
 function draw() {
+  background(getValue(BACKGROUND_COLOR));
   push();
+
   // V1();
   // V2()
   // V3();
   // V4();
-  // Ta()
-  Tung();
+  Ta();
+  // Tung();
   pop();
 }

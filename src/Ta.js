@@ -8,38 +8,70 @@ const colors = [
   '#008236', // green
 ];
 
+const taConfig = {
+  defaultElement: {
+    size: Math.random(),
+    posX: { min: -CANVAS_SIZE.WIDTH / 2, max: CANVAS_SIZE.WIDTH / 2 },
+    posY: { min: -CANVAS_SIZE.HEIGHT / 2, max: CANVAS_SIZE.HEIGHT / 2 },
+    color: colors,
+    isVisible: Math.random() < 0.8,
+  },
+  elements: {
+    hStripes: {
+      size: Math.random(),
+      // posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+      // posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+      // color: colors,
+      isVisible: Math.random() < 0.8,
+    },
+    vStripes: {
+      size: Math.random(),
+      // posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+      // posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+      // color: colors,
+      isVisible: Math.random() < 0.8,
+    },
+    dStripes: {
+      size: Math.random(),
+      // posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+      // posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+      // color: colors,
+      isVisible: Math.random() < 0.8,
+    },
+    dots: {
+      size: Math.random(),
+      // posX: { min: 0, max: CANVAS_SIZE.WIDTH },
+      // posY: { min: 0, max: CANVAS_SIZE.HEIGHT },
+      // color: colors,
+      isVisible: Math.random() < 0.8,
+    },
+  },
+};
+
+const parseTaConfig = config => {
+  const { elements, defaultElement } = config || {};
+  const newElements = {};
+  for (key in elements) {
+    const { size: s, posX: x, posY: y, color: col, isVisible: visible } = elements[key];
+    const newElement = {
+      size: getValue(s) || getValue(defaultElement.size),
+      posX: getValue(x) || getValue(defaultElement.posX),
+      posY: getValue(y) || getValue(defaultElement.posY),
+      color: getValue(col) || getValue(defaultElement.color),
+      isVisible: visible !== null && visible !== undefined ? visible : defaultElement.isVisible,
+    };
+    newElements[key] = newElement;
+  }
+  return newElements;
+};
+
 function Ta() {
   noLoop();
-  background(random(colors));
-  // background('#fff');
-  drawHStripes(
-    random(),
-    random(width) - width * 0.5,
-    random(height) - height * 0.5,
-    random(colors),
-    random() < 0.8
-  );
-  drawVStripes(
-    random(),
-    random(width) - width * 0.5,
-    random(height) - height * 0.5,
-    random(colors),
-    random() < 0.8
-  );
-  drawDStripes(
-    random(),
-    random(width) - width * 0.5,
-    random(height) - height * 0.5,
-    random(colors),
-    random() < 0.8
-  );
-  drawDots(
-    random(),
-    random(width) - width * 0.5,
-    random(height) - height * 0.5,
-    random(colors),
-    random() < 0.8
-  );
+  const { hStripes, vStripes, dStripes, dots } = parseTaConfig(taConfig) || {};
+  drawHStripes(hStripes.size, hStripes.posX, hStripes.posY, hStripes.color, hStripes.isVisible);
+  drawVStripes(vStripes.size, vStripes.posX, vStripes.posY, vStripes.color, vStripes.isVisible);
+  drawDStripes(dStripes.size, dStripes.posX, dStripes.posY, dStripes.color, dStripes.isVisible);
+  drawDots(dots.size, dots.posX, dots.posY, dots.color, dots.isVisible);
 }
 
 function drawHStripes(size, posX, posY, col, isVisible) {
