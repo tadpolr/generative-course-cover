@@ -66,16 +66,6 @@ const getElements = (type, config) => {
   return newElements;
 };
 
-const getValue = value => {
-  if (Array.isArray(value)) {
-    return random(value);
-  } else if (typeof value === 'object') {
-    const { min, max } = value;
-    return random(min, max);
-  } else {
-    return value;
-  }
-};
 const drawEllipse = (w, h, x, y, sWeight, sColor, isCircle) => {
   const width = getValue(w);
   const height = isCircle ? width : getValue(h);
@@ -92,7 +82,6 @@ const drawEllipse = (w, h, x, y, sWeight, sColor, isCircle) => {
 function Tung() {
   const elements = getElements(null, tungConfig);
   noFill();
-  background(0);
 
   elements.forEach(e => {
     const { width, height, posX, posY, strokeWeight, strokeColor, isCircle } = e;

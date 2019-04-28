@@ -27,3 +27,14 @@ function getPolygonXAxisWidth(radius, npoints) {
   const angle = TWO_PI / npoints;
   return radius * cos(angle / 2) * 2;
 }
+
+const getValue = value => {
+  if (Array.isArray(value)) {
+    return random(value);
+  } else if (typeof value === 'object') {
+    const { min, max } = value;
+    return random(min, max);
+  } else {
+    return value;
+  }
+};

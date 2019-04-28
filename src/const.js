@@ -4,6 +4,7 @@ const COLOR = {
   dark: '#0D123C',
 };
 const COLOR_ARRAY = Object.values(COLOR);
+const BACKGROUND_COLOR = '#000000';
 const CANVAS_SIZE = {
   WIDTH: 800,
   HEIGHT: 600,
