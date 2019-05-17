@@ -28,7 +28,7 @@ const drawEllipse = (w, h, x, y, sWeight, sColor, isCircle) => {
   ellipse(posX, posY, width, height);
 };
 
-function V4() {
+function V3() {
   const elements = getElements(null, V3Config);
   noFill();
 

@@ -18,7 +18,7 @@ const parseV2Config = config => {
   return newElements;
 };
 
-function V3() {
+function V2() {
   noLoop();
   const { hStripes, vStripes, dStripes, dots } = parseV2Config(V2Config) || {};
   drawHStripes(hStripes.size, hStripes.posX, hStripes.posY, hStripes.color, hStripes.isVisible);
