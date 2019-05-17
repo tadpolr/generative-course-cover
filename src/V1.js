@@ -24,7 +24,7 @@ const createShape = (shape, { sColor, sWeight, fillColor }) => {
   shape();
 };
 
-function V2() {
+function V1() {
   const {
     rowCount,
     columnCount,
