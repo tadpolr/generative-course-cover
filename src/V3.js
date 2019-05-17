@@ -29,7 +29,7 @@ const drawEllipse = (w, h, x, y, sWeight, sColor, isCircle) => {
 };
 
 function V3() {
-  const elements = getElements(null, V3Config);
+  const elements = getElements(null, v3Config());
   noFill();
 
   elements.forEach(e => {

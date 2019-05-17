@@ -37,7 +37,7 @@ function V1() {
     offsetModuleX,
     offsetModuleY,
     isVisiblePercent,
-  } = parseV1Config(V1Config) || {};
+  } = parseV1Config(v1Config()) || {};
 
   function row() {
     for (var a = 0; a < columnCount; a++) {

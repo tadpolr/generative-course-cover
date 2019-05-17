@@ -15,7 +15,9 @@
     <script src="../addons/p5.sound.min.js"></script>
     <script src="util.js"></script>
     <script src="const.js"></script>
-    <script src="config.js"></script>
+    <script src="config/v1Config.js"></script>
+    <script src="config/v2Config.js"></script>
+    <script src="config/v3Config.js"></script>
     <script src="V1.js"></script>
     <script src="V2.js"></script>
     <script src="V3.js"></script>
@@ -24,12 +26,18 @@
   <body>
     <div>
       <div id="sketch-holder"><!-- Our sketch will go here! --></div>
-      <h2>Don't like it?</h2>
-      <button id="redraw-button">GET NEW IMAGE</button>
+      <h2>Don't like it? Draw it again</h2>
+      <button id="drawV1Button">V1</button>
+      <button id="drawV2Button">V2</button>
+      <button id="drawV3Button">V3</button>
     </div>
   </body>
   <script>
-    const redrawButton = document.getElementById('redraw-button');
-    redrawButton.addEventListener('click', () => redraw());
+    const drawV1Button = document.getElementById('drawV1Button');
+    drawV1Button.addEventListener('click', drawOnce(V1));
+    const drawV2Button = document.getElementById('drawV2Button');
+    drawV2Button.addEventListener('click', drawOnce(V2));
+    const drawV3Button = document.getElementById('drawV3Button');
+    drawV3Button.addEventListener('click', drawOnce(V3));
   </script>
 </html>
