@@ -1,42 +1,40 @@
 // V3
-// size: progressive
-// position: depends on size
-// color: random
+// Author: Tung
 
-function V3() {
-  const COLUMN_COUNT = 5;
-  const ROW_COUNT = 10;
-  const RADIUS = 20;
-  const STROKE_WEIGHT = 2;
-  const STROKE_COLORS = [...getColors('transparent', 7), 'rgba(255,255,255,0.7)', ...COLOR_ARRAY];
-  const FILL_COLORS = [...getColors('transparent', 7), 'rgba(255,255,255,0.7)', ...COLOR_ARRAY];
-  const BG_COLOR = '#fff';
-  // const OFFSET_MODULE_X = 0;
-  const OFFSET_MODULE_Y = 0;
-  const OFFSET_ROW_X = 0;
-  // const OFFSET_ROW_Y = 0;
-
-  function row(rad) {
-    for (var a = 0; a < COLUMN_COUNT; a++) {
-      stroke(random(STROKE_COLORS));
-      strokeWeight(STROKE_WEIGHT);
-      fill(random(FILL_COLORS));
-
-      // If you want other shapes, put it here
-      hexagon(rad, true);
-      translate(getPolygonXAxisWidth(rad, 6), OFFSET_MODULE_Y);
-    }
+const getElements = (type, config) => {
+  const { defaultElement, elementCount, elements } = config || {};
+  let newElements = [];
+  for (let i = 0; i < elementCount; i++) {
+    const currElement = elements[i] || {};
+    const newElement = {};
+    Object.keys(defaultElement).forEach(e => {
+      newElement[e] = currElement[e] || defaultElement[e];
+    });
+    newElements.push(newElement);
   }
+  return newElements;
+};
 
-  function rows() {
-    for (var a = 0; a < ROW_COUNT; a++) {
-      push();
-      row(RADIUS * 2 * a);
-      pop();
-      translate(OFFSET_ROW_X, RADIUS * 2 * a);
-    }
-  }
+const drawEllipse = (w, h, x, y, sWeight, sColor, isCircle) => {
+  const width = getValue(w);
+  const height = isCircle ? width : getValue(h);
+  const posX = getValue(x);
+  const posY = getValue(y);
+  const stWeight = getValue(sWeight);
+  const stColor = getValue(sColor);
 
-  background(BG_COLOR);
-  rows();
+  strokeWeight(stWeight);
+  stroke(stColor);
+  ellipse(posX, posY, width, height);
+};
+
+function V4() {
+  const elements = getElements(null, V3Config);
+  noFill();
+
+  elements.forEach(e => {
+    const { width, height, posX, posY, strokeWeight, strokeColor, isCircle } = e;
+    noFill();
+    drawEllipse(width, height, posX, posY, strokeWeight, strokeColor, isCircle);
+  });
 }

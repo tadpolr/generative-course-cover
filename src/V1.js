@@ -1,50 +1,63 @@
 // V1
-// size: random
-// position: depends on size
-// color: random
-// rotate: depends on size
+// Author: Ky
 
-function V1() {
-  const COLUMN_COUNT = 4;
-  const ROW_COUNT = 6;
-  const RADIUS = [90, 180, 360, 720, 1440];
-  const STROKE_WEIGHT = [4, 8, 12];
-  const COLOR = COLOR_ARRAY;
-  const OFFSET_ROW_X = 104;
-  const OFFSET_ROW_Y = 90;
-  const BG_COLOR = '#fff';
+const parseV1Config = config => {
+  const { strokeColor, fillColor, ...restConfig } = config || {};
+  const reducer = (acc, curr) => {
+    const { value, count } = curr || {};
+    const currArr = [];
+    for (let i = 0; i < count; i++) {
+      currArr.push(value);
+    }
+    return [...currArr, ...acc];
+  };
+  const s = strokeColor.reduce(reducer, []);
+  const f = fillColor.reduce(reducer, []);
+  return { strokeColor: s, fillColor: f, ...restConfig };
+};
 
-  // Draw Hexagon or other polygon.
-  function drawModule(radius, weight) {
-    rotate(radius);
-    stroke(random(COLOR));
-    strokeWeight(weight);
+const createShape = (shape, { sColor, sWeight, fillColor }) => {
+  stroke(getValue(sColor));
+  strokeWeight(getValue(sWeight));
+  fill(getValue(fillColor));
 
-    // If you want other shapes, put it here
-    hexagon(radius);
-  }
+  shape();
+};
+
+function V2() {
+  const {
+    rowCount,
+    columnCount,
+    radius,
+    strokeWeight: sWeight,
+    strokeColor: sColor,
+    fillColor,
+    offsetColumn,
+    offsetRow,
+    offsetModuleX,
+    offsetModuleY,
+    isVisiblePercent,
+  } = parseV1Config(V1Config) || {};
 
   function row() {
-    const radius = random(RADIUS);
-    const weight = random(STROKE_WEIGHT);
+    for (var a = 0; a < columnCount; a++) {
+      const r = getValue(radius);
 
-    for (var a = 0; a < COLUMN_COUNT; a++) {
-      const offsetX = radius;
+      if (Math.random() * 100 < isVisiblePercent) {
+        createShape(() => hexagon(r, true), { sWeight, sColor, fillColor });
+      }
 
-      drawModule(radius, weight);
-      translate(offsetX, 0);
+      translate(offsetColumn || getPolygonXAxisWidth(r, 6), offsetModuleY);
     }
   }
 
   function rows() {
-    for (var a = 0; a < ROW_COUNT; a++) {
+    for (var a = 0; a < rowCount; a++) {
       push();
       row();
       pop();
-      translate(OFFSET_ROW_X, OFFSET_ROW_Y);
+      translate(offsetModuleX, offsetRow || getValue(radius));
     }
   }
-
-  background(BG_COLOR);
   rows();
 }

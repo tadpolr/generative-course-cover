@@ -38,3 +38,31 @@ const getValue = value => {
     return value;
   }
 };
+
+const createTable = ({
+  columnCount,
+  rowCount,
+  columnWidth,
+  rowHeight,
+  onRowChange,
+  onColumnChange,
+}) => {
+  // createRow
+  let config = {
+    rowHeight,
+    columnWidth,
+  };
+  for (let i = 0; i < rowCount; i++) {
+    push();
+    for (let j = 0; j < columnCount; j++) {
+      const newConfig = onColumnChange(j, config);
+      config = { ...config, ...newConfig };
+      translate(config.columnWidth, 0);
+    }
+    pop();
+
+    const newConfig = onRowChange(i, config);
+    config = { ...config, ...newConfig };
+    translate(0, config.rowHeight);
+  }
+};

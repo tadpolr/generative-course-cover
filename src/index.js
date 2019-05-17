@@ -8,11 +8,9 @@ function draw() {
   background(getValue(BACKGROUND_COLOR));
   push();
 
-  // V1();
-  // V2()
+  V1();
+  // V2();
   // V3();
-  // V4();
-  Ta();
-  // Tung();
+
   pop();
 }
