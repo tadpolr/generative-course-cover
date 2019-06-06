@@ -29,15 +29,11 @@
       <button id="drawV1Button">V1</button>
       <button id="drawV2Button">V2</button>
       <button id="drawV3Button">V3</button>
+      <label for="width">Width</label><input id="width" name="width" value="1920"></input>
+      <label for="height">Height</label><input id="height" name="height" value="1080"></input>
+      <label for="color">Background Color</label><input id="color" name="Color" value="#000"></input>
+      <button id="update">Update Setting</button>
       <div id="sketch-holder"><!-- Our sketch will go here! --></div>
     </div>
   </body>
-  <script>
-    const drawV1Button = document.getElementById('drawV1Button');
-    drawV1Button.addEventListener('click', drawOnce(V1));
-    const drawV2Button = document.getElementById('drawV2Button');
-    drawV2Button.addEventListener('click', drawOnce(V2));
-    const drawV3Button = document.getElementById('drawV3Button');
-    drawV3Button.addEventListener('click', drawOnce(V3));
-  </script>
 </html>
