@@ -4,10 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>generative-course-cover</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
+    />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <!-- OR -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.es5.min.js"></script>
     <style>
       body {
         padding: 0;
         margin: 0;
+      }
+      .pcr-button {
+        height: 2.4em !important;
+        width: 2.4em !important;
       }
     </style>
     <script src="./p5/p5.min.js"></script>
@@ -24,16 +37,94 @@
     <script src="index.js"></script>
   </head>
   <body>
-    <div>
-      <h2>Don't like it? Draw it again</h2>
-      <button id="drawV1Button">V1</button>
-      <button id="drawV2Button">V2</button>
-      <button id="drawV3Button">V3</button>
-      <label for="width">Width</label><input id="width" name="width" value="1920"></input>
-      <label for="height">Height</label><input id="height" name="height" value="1080"></input>
-      <label for="color">Background Color</label><input id="color" name="Color" value="#000"></input>
-      <button id="update">Update Setting</button>
-      <div id="sketch-holder"><!-- Our sketch will go here! --></div>
-    </div>
+    <nav class="navbar">
+      <div class="navbar-brand"><h1 class="navbar-item title">Skooldio Generative Cover</h1></div>
+    </nav>
+    <section class="section has-background-white-bis">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="panel has-background-white">
+              <div class="panel-heading">Random with Style</div>
+              <div class="panel-block">
+                <div class="container">
+                  <button id="drawV1Button" class="button is-primary">Hexagon</button>
+                  <button id="drawV2Button" class="button is-primary">Skooldio MD</button>
+                  <button id="drawV3Button" class="button is-primary">Circle</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="panel has-background-white">
+              <div class="panel-heading">Settings</div>
+              <div class="panel-block">
+                <div class="container">
+                  <form>
+                    <label class="label">Dimension</label>
+                    <div class="field has-addons">
+                      <p class="control has-icons-left ">
+                        <input
+                          class="input is-small"
+                          type="number"
+                          id="width"
+                          name="width"
+                          value="1920"
+                        /><span class="icon is-small is-left"
+                          ><i class="fas fa-ruler-horizontal"></i
+                        ></span>
+                      </p>
+                      <p class="control"><a class="button is-static is-small">px</a></p>
+                    </div>
+                    <div class="field has-addons">
+                      <p class="control has-icons-left">
+                        <input
+                          id="height"
+                          class="input is-small"
+                          type="number"
+                          name="height"
+                          value="1080"
+                        /><span class="icon is-small is-left"
+                          ><i class="fas fa-ruler-vertical"></i
+                        ></span>
+                      </p>
+                      <p class="control"><a class="button is-static is-small">px</a></p>
+                    </div>
+                    <label class="label">Color</label>
+                    <div class="field is-horizontal">
+                      <div class="field-label is-small">
+                        <label for="bgColor" class="label">Background</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field has-addons">
+                          <p>
+                            <input
+                              id="bgColor"
+                              class="input is-small"
+                              name="bgColor"
+                              value="#000"
+                              disabled
+                            />
+                          </p>
+                          <p class="control"><a class="button color-picker is-small"></a></p>
+                        </div>
+                      </div>
+                    </div>
+                    <button id="update" class="button is-info is-outlined" type="button">
+                      Update Setting
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="hero">
+      <div id="sketch-holder" style="max-width:100%; overflow:scroll">
+        <!-- Our sketch will go here! -->
+      </div>
+    </section>
   </body>
 </html>
